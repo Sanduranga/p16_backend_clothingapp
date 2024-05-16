@@ -31,7 +31,7 @@ public class UserService {
         }
     }
 
-    public Users saveUser(CreateUsersDto createUsersDto) {
+    public Users addUser(CreateUsersDto createUsersDto) {
         Users user = new Users();
         user.setName(createUsersDto.getName());
         user.setEmail(createUsersDto.getEmail());
