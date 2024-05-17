@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class GeneralItemDto {
     private String name;
-    private String itemName;
+    private String itemTitle;
     private String itemIs;
     private String sellingType;
     private Integer buyingPrice;
@@ -16,4 +16,5 @@ public class GeneralItemDto {
     private String itemColor;
     private String itemSize;
     private String materialName;
+    private String description;
 }

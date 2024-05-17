@@ -16,7 +16,7 @@ public class ItemService {
 
     public Items addItem(GeneralItemDto generalItemDto) {
         Items item = new Items();
-        item.setItemName(generalItemDto.getItemName());
+        item.setItemTitle(generalItemDto.getItemTitle());
         item.setItemColor(generalItemDto.getItemColor());
         item.setItemSize(generalItemDto.getItemSize());
         item.setBuyingPrice(generalItemDto.getBuyingPrice());
@@ -29,6 +29,7 @@ public class ItemService {
         item.setItemIs(generalItemDto.getItemIs());
         item.setName(generalItemDto.getName());
         item.setSellingPrice(generalItemDto.getSellingPrice());
+        item.setDescription(generalItemDto.getDescription());
         return itemRepository.save(item);
     }
 
