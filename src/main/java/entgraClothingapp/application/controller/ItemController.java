@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "api/items")
 @CrossOrigin
@@ -19,5 +21,11 @@ public class ItemController {
     public ResponseEntity<Items> addItem(@RequestBody GeneralItemDto generalItemDto) {
         Items createdItem = itemService.addItem(generalItemDto);
         return ResponseEntity.ok(createdItem);
+    }
+
+    @GetMapping("/get-items")
+    public ResponseEntity<List<Items>> getItems() {
+        List<Items> items = itemService.getAllItems();
+        return ResponseEntity.ok(items);
     }
 }

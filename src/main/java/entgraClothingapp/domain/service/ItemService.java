@@ -4,7 +4,10 @@ import entgraClothingapp.application.dto.response.GeneralItemDto;
 import entgraClothingapp.domain.entity.Items;
 import entgraClothingapp.external.repository.ItemRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +29,10 @@ public class ItemService {
         item.setItemIs(generalItemDto.getItemIs());
         item.setName(generalItemDto.getName());
         item.setSellingPrice(generalItemDto.getSellingPrice());
-
         return itemRepository.save(item);
+    }
+
+    public List<Items> getAllItems() {
+        return itemRepository.findAll();
     }
 }
