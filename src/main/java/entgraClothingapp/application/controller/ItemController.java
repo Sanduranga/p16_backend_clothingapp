@@ -1,6 +1,7 @@
 package entgraClothingapp.application.controller;
 
 import entgraClothingapp.application.dto.response.GeneralItemDto;
+import entgraClothingapp.application.dto.response.GeneralUserDto;
 import entgraClothingapp.domain.entity.Items;
 import entgraClothingapp.domain.service.ItemService;
 import lombok.AllArgsConstructor;
@@ -27,5 +28,9 @@ public class ItemController {
     public ResponseEntity<List<Items>> getItems() {
         List<Items> items = itemService.getAllItems();
         return ResponseEntity.ok(items);
+    }
+    @GetMapping("/get-item")
+    public ResponseEntity<GeneralItemDto> getItem(@RequestParam Integer id) {
+        return itemService.getItem(id);
     }
 }
