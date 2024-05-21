@@ -13,20 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-public class Items {
+public class SaleItems {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String code;
-    private String itemTitle;
-    private String itemIs;
-    private String sellingType;
+    private Integer salePercentage;
     private Integer buyingPrice;
     private Integer sellingPrice;
-    private Integer profitPercentage;
-    private String itemColor;
-    private String itemSize;
-    private String materialName;
-    private String description;
-
+    private Integer salePrice;
 }

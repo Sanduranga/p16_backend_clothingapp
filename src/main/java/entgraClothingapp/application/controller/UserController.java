@@ -1,7 +1,7 @@
 package entgraClothingapp.application.controller;
 
 import entgraClothingapp.application.dto.request.CreateUsersDto;
-import entgraClothingapp.application.dto.response.GeneralUserDto;
+import entgraClothingapp.application.dto.response.UserDto;
 import entgraClothingapp.domain.entity.Users;
 import entgraClothingapp.domain.service.UserService;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/get-user")
-    public ResponseEntity<GeneralUserDto> getUser(@RequestParam String email){
+    public ResponseEntity<UserDto> getUser(@RequestParam String email){
         return userService.getUser(email);
     }
 

@@ -1,7 +1,7 @@
 package entgraClothingapp.application.controller;
 
-import entgraClothingapp.application.dto.response.GeneralItemDto;
-import entgraClothingapp.application.dto.response.GeneralUserDto;
+import entgraClothingapp.application.dto.request.CreateItemDto;
+import entgraClothingapp.application.dto.response.ItemDto;
 import entgraClothingapp.domain.entity.Items;
 import entgraClothingapp.domain.service.ItemService;
 import lombok.AllArgsConstructor;
@@ -16,11 +16,11 @@ import java.util.List;
 @AllArgsConstructor
 
 public class ItemController {
-        private ItemService itemService;
+    private ItemService itemService;
 
     @PostMapping("/add-item")
-    public ResponseEntity<Items> addItem(@RequestBody GeneralItemDto generalItemDto) {
-        Items createdItem = itemService.addItem(generalItemDto);
+    public ResponseEntity<Items> addItem(@RequestBody CreateItemDto createItemDto) {
+        Items createdItem = itemService.addItem(createItemDto);
         return ResponseEntity.ok(createdItem);
     }
 
@@ -30,7 +30,7 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
     @GetMapping("/get-item")
-    public ResponseEntity<GeneralItemDto> getItem(@RequestParam Integer id) {
+    public ResponseEntity<ItemDto> getItem(@RequestParam Integer id) {
         return itemService.getItem(id);
     }
 }

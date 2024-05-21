@@ -1,7 +1,7 @@
 package entgraClothingapp.domain.service;
 
 import entgraClothingapp.application.dto.request.CreateUsersDto;
-import entgraClothingapp.application.dto.response.GeneralUserDto;
+import entgraClothingapp.application.dto.response.UserDto;
 import entgraClothingapp.domain.entity.Users;
 import entgraClothingapp.external.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -17,14 +17,14 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public ResponseEntity<GeneralUserDto> getUser(String email) {
-        GeneralUserDto generalUserDto = new GeneralUserDto();
+    public ResponseEntity<UserDto> getUser(String email) {
+        UserDto userDto = new UserDto();
         Optional<Users> optionalUsers = userRepository.findByEmail(email);
         if(optionalUsers.isPresent()) {
             Users user = optionalUsers.get();
-            generalUserDto.setEmail(user.getEmail());
-            generalUserDto.setName(user.getName());
-            return ResponseEntity.ok(generalUserDto);
+            userDto.setEmail(user.getEmail());
+            userDto.setName(user.getName());
+            return ResponseEntity.ok(userDto);
         }
         else {
             return ResponseEntity.notFound().build();
