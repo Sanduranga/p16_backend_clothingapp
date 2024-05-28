@@ -18,11 +18,20 @@ public class SaleItemService {
 
     public SaleItems addItem(CreateSaleItemDto createSaleItemDto) {
         SaleItems saleItem = new SaleItems();
+        saleItem.setId(createSaleItemDto.getId());
         saleItem.setBuyingPrice(createSaleItemDto.getBuyingPrice());
+        saleItem.setStatus(createSaleItemDto.getStatus());
+        saleItem.setItemColor(createSaleItemDto.getItemColor());
+        saleItem.setItemTitle(createSaleItemDto.getItemTitle());
+        saleItem.setItemType(createSaleItemDto.getItemType());
+        saleItem.setMaterialName(createSaleItemDto.getMaterialName());
+        saleItem.setDescription(createSaleItemDto.getDescription());
+        saleItem.setItemSize(createSaleItemDto.getItemSize());
         saleItem.setSalePrice(createSaleItemDto.getSalePrice());
-        saleItem.setSellingPrice(createSaleItemDto.getSellingPrice());
+        saleItem.setSellerName(createSaleItemDto.getSellerName());
         saleItem.setSalePercentage(createSaleItemDto.getSalePercentage());
         saleItem.setCode(createSaleItemDto.getCode());
+        saleItem.setNumberOfItems(createSaleItemDto.getNumberOfItems());
         return saleItemRepository.save(saleItem);
     }
 
@@ -35,17 +44,31 @@ public class SaleItemService {
         Optional<SaleItems> optionalItem = saleItemRepository.findById(id);
         if(optionalItem.isPresent()){
             SaleItems saleItem = optionalItem.get();
-
             saleItemDto.setBuyingPrice(saleItem.getBuyingPrice());
             saleItemDto.setSalePrice(saleItem.getSalePrice());
-            saleItemDto.setSalePrice(saleItem.getSalePrice());
-            saleItemDto.setSellingPrice(saleItem.getSellingPrice());
+            saleItemDto.setItemColor(saleItem.getItemColor());
+            saleItemDto.setItemTitle(saleItem.getItemTitle());
+            saleItemDto.setItemType(saleItem.getItemType());
+            saleItemDto.setId(saleItem.getId());
+            saleItemDto.setDescription(saleItem.getDescription());
+            saleItemDto.setItemSize(saleItem.getItemSize());
+            saleItemDto.setSellerName(saleItem.getSellerName());
             saleItemDto.setSalePercentage(saleItem.getSalePercentage());
-            saleItemDto.setSellingPrice(saleItem.getSellingPrice());
             saleItemDto.setCode(saleItem.getCode());
+            saleItemDto.setNumberOfItems(saleItem.getNumberOfItems());
             return ResponseEntity.ok(saleItemDto);
         }else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    public ResponseEntity<String> deleteItem(Integer id) {
+       Optional<SaleItems> optionalSaleItems = saleItemRepository.findById(id);
+       if(optionalSaleItems.isPresent()){
+           saleItemRepository.deleteById(id);
+           return ResponseEntity.ok("Sale Item deleted successfully!");
+       }else {
+           return ResponseEntity.notFound().build();
+       }
     }
 }

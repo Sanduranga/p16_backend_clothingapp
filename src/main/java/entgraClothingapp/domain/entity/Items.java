@@ -19,14 +19,15 @@ public class Items {
     private Integer id;
     private String code;
     private String itemTitle;
-    private String itemIs;
-    private String sellingType;
+    private String itemType;
+    private String sellerName;
     private Integer buyingPrice;
     private Integer sellingPrice;
     private Integer profitPercentage;
+    private String status;
     private String itemColor;
     private String itemSize;
     private String materialName;
     private String description;
-
+    private Integer numberOfItems;
 }

@@ -16,20 +16,22 @@ import java.util.Optional;
 public class ItemService {
     private final ItemRepository itemRepository;
 
-    public Items addItem(CreateItemDto CreateItemDto) {
-        Items item = new Items();
-        item.setItemTitle(CreateItemDto.getItemTitle());
-        item.setItemColor(CreateItemDto.getItemColor());
-        item.setItemSize(CreateItemDto.getItemSize());
-        item.setBuyingPrice(CreateItemDto.getBuyingPrice());
-        item.setMaterialName(CreateItemDto.getMaterialName());
-        item.setProfitPercentage(CreateItemDto.getProfitPercentage());
-        item.setSellingType(CreateItemDto.getSellingType());
-        item.setItemIs(CreateItemDto.getItemIs());
-        item.setSellingPrice(CreateItemDto.getSellingPrice());
-        item.setDescription(CreateItemDto.getDescription());
-        item.setCode(CreateItemDto.getCode());
-        return itemRepository.save(item);
+    public Items addItem(CreateItemDto createItemDto) {
+        Items items = new Items();
+        items.setItemTitle(createItemDto.getItemTitle());
+        items.setItemType(createItemDto.getItemType());
+        items.setItemColor(createItemDto.getItemColor());
+        items.setItemSize(createItemDto.getItemSize());
+        items.setBuyingPrice(createItemDto.getBuyingPrice());
+        items.setMaterialName(createItemDto.getMaterialName());
+        items.setProfitPercentage(createItemDto.getProfitPercentage());
+        items.setSellerName(createItemDto.getSellerName());
+        items.setSellingPrice(createItemDto.getSellingPrice());
+        items.setDescription(createItemDto.getDescription());
+        items.setCode(createItemDto.getCode());
+        items.setNumberOfItems(createItemDto.getNumberOfItems());
+        items.setStatus(createItemDto.getStatus());
+        return itemRepository.save(items);
     }
 
     public List<Items> getAllItems() {
@@ -40,18 +42,57 @@ public class ItemService {
         ItemDto itemDto = new ItemDto();
         Optional<Items> optionalItem = itemRepository.findById(id);
         if(optionalItem.isPresent()){
-            Items item = optionalItem.get();
-            itemDto.setItemTitle(item.getItemTitle());
-            itemDto.setItemColor(item.getItemColor());
-            itemDto.setItemSize(item.getItemSize());
-            itemDto.setBuyingPrice(item.getBuyingPrice());
-            itemDto.setMaterialName(item.getMaterialName());
-            itemDto.setProfitPercentage(item.getProfitPercentage());
-            itemDto.setSellingType(item.getSellingType());
-            itemDto.setItemIs(item.getItemIs());
-            itemDto.setSellingPrice(item.getSellingPrice());
-            itemDto.setDescription(item.getDescription());
+            Items items = optionalItem.get();
+            itemDto.setId(items.getId());
+            itemDto.setCode(items.getCode());
+            itemDto.setItemTitle(items.getItemTitle());
+            itemDto.setItemType(items.getItemType());
+            itemDto.setItemColor(items.getItemColor());
+            itemDto.setItemSize(items.getItemSize());
+            itemDto.setBuyingPrice(items.getBuyingPrice());
+            itemDto.setMaterialName(items.getMaterialName());
+            itemDto.setProfitPercentage(items.getProfitPercentage());
+            itemDto.setSellerName(items.getSellerName());
+            itemDto.setSellingPrice(items.getSellingPrice());
+            itemDto.setDescription(items.getDescription());
+            itemDto.setNumberOfItems(items.getNumberOfItems());
+            itemDto.setStatus(items.getStatus());
             return ResponseEntity.ok(itemDto);
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public ResponseEntity<String> deleteItem(Integer id) {
+        Optional<Items> optinalItem = itemRepository.findById(id);
+        if(optinalItem.isPresent()){
+            itemRepository.deleteById(id);
+            return ResponseEntity.ok("Item deleted successfully!");
+        }else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public ResponseEntity<String> updateItem(Integer id, CreateItemDto createItemDto) {
+        Optional<Items> optionalItem = itemRepository.findById(id);
+        if(optionalItem.isPresent()){
+            Items items = optionalItem.get();
+            items.setItemTitle(createItemDto.getItemTitle());
+            items.setItemType(createItemDto.getItemType());
+            items.setItemColor(createItemDto.getItemColor());
+            items.setItemSize(createItemDto.getItemSize());
+            items.setBuyingPrice(createItemDto.getBuyingPrice());
+            items.setMaterialName(createItemDto.getMaterialName());
+            items.setProfitPercentage(createItemDto.getProfitPercentage());
+            items.setSellerName(createItemDto.getSellerName());
+            items.setSellingPrice(createItemDto.getSellingPrice());
+            items.setDescription(createItemDto.getDescription());
+            items.setCode(createItemDto.getCode());
+            items.setNumberOfItems(createItemDto.getNumberOfItems());
+            items.setStatus(createItemDto.getStatus());
+            itemRepository.save(items);
+            return ResponseEntity.ok("Item updated successfully!");
+
         }else {
             return ResponseEntity.notFound().build();
         }

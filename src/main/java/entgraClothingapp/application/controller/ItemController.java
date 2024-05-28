@@ -33,4 +33,12 @@ public class ItemController {
     public ResponseEntity<ItemDto> getItem(@RequestParam Integer id) {
         return itemService.getItem(id);
     }
+    @DeleteMapping("/delete-item")
+    public ResponseEntity<String> deleteItem(@RequestParam Integer id) {
+        return itemService.deleteItem(id);
+    }
+    @PutMapping("/update-item")
+    public ResponseEntity<String> updateItem (@RequestParam Integer id, @RequestBody CreateItemDto createItemDto) {
+        return itemService.updateItem(id ,createItemDto);
+    }
 }

@@ -18,8 +18,8 @@ public class SaleItemController {
 
     private SaleItemService saleItemService;
 
-    @PostMapping("/add-items")
-    public ResponseEntity<SaleItems> addItem(@RequestParam CreateSaleItemDto createSaleItemDto) {
+    @PostMapping("/add-item")
+    public ResponseEntity<SaleItems> addItem(@RequestBody CreateSaleItemDto createSaleItemDto) {
         SaleItems creteSaleItem = saleItemService.addItem(createSaleItemDto);
         return ResponseEntity.ok(creteSaleItem);
     }
@@ -32,5 +32,9 @@ public class SaleItemController {
     @GetMapping("/get-item")
     public ResponseEntity<SaleItemDto> getItem(@RequestParam Integer id) {
         return saleItemService.getItem(id);
+    }
+    @DeleteMapping("/delete-item")
+    public ResponseEntity<String> deleteItem(@RequestParam Integer id) {
+        return  saleItemService.deleteItem(id);
     }
 }
