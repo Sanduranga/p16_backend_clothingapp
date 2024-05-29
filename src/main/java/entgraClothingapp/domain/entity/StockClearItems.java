@@ -10,15 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-
-public class SaleItems {
+public class StockClearItems {
     @Id
     private Integer id;
-    private Integer numberOfItems;
+    private Integer stockClearingPrice;
     private Integer buyingPrice;
-    private Integer salePercentage;
-    private Integer salePrice;
-    private  Integer sellingPrice;
+    private Integer numberOfItems;
+    private Integer sellingPrice;
     private String code;
     private String itemTitle;
     private String itemType;
