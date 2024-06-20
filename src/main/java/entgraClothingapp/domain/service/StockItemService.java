@@ -61,11 +61,11 @@ public class StockItemService {
         }
     }
 
-    public ResponseEntity<String> deleteItem(Integer id) {
+    public ResponseEntity<Void> deleteItem(Integer id) {
         Optional<StockClearItems> optionalSaleItems = stockItemRepository.findById(id);
         if(optionalSaleItems.isPresent()){
             stockItemRepository.deleteById(id);
-            return ResponseEntity.ok("Sale Item deleted successfully!");
+            return ResponseEntity.noContent().build();
         }else {
             return ResponseEntity.notFound().build();
         }

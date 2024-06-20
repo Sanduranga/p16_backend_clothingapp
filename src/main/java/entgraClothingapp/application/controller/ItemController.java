@@ -36,7 +36,7 @@ public class ItemController {
         return itemService.getItem(id);
     }
     @DeleteMapping("/delete-item")
-    public ResponseEntity<String> deleteItem(@RequestParam Integer id) {
+    public ResponseEntity<Void> deleteItem(@RequestParam Integer id) {
         return itemService.deleteItem(id);
     }
     @PutMapping("/update-item")

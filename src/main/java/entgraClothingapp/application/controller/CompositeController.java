@@ -21,7 +21,7 @@ public class CompositeController {
     }
 
     @DeleteMapping("/all-delete-item")
-    public ResponseEntity<String> deleteItem(@RequestParam String code) {
+    public ResponseEntity<Void> deleteItem(@RequestParam String code) {
         return compositeResService.deleteItem(code);
     }
 }

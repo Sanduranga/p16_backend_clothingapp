@@ -63,11 +63,11 @@ public class ItemService {
         }
     }
 
-    public ResponseEntity<String> deleteItem(Integer id) {
+    public ResponseEntity<Void> deleteItem(Integer id) {
         Optional<Items> optinalItem = itemRepository.findById(id);
         if(optinalItem.isPresent()){
             itemRepository.deleteById(id);
-            return ResponseEntity.ok("Item deleted successfully!");
+            return ResponseEntity.noContent().build();
         }else {
             return ResponseEntity.notFound().build();
         }

@@ -36,7 +36,7 @@ public class StockItemsController {
         return stockItemService.getItem(id);
     }
     @DeleteMapping("/delete-item")
-    public ResponseEntity<String> deleteItem(@RequestParam Integer id) {
+    public ResponseEntity<Void> deleteItem(@RequestParam Integer id) {
         return  stockItemService.deleteItem(id);
     }
 }
