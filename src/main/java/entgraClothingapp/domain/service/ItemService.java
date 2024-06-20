@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class ItemService {
-    private final ItemRepository itemRepository;
+        private final ItemRepository itemRepository;
 
     public Items addItem(CreateItemDto createItemDto) {
         Items items = new Items();
