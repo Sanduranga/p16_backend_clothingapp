@@ -28,20 +28,20 @@ public class CompositeResService {
         return new CompositeRes(itemsData, saleItemsData, stockClearItemsData);
     }
 
-    public ResponseEntity<String> deleteItem(Integer id) {
-        Optional<Items> optional1 = itemRepository.findById(id);
+    public ResponseEntity<String> deleteItem( String code) {
+        Optional<Items> optional1 = itemRepository.findByCode(code);
         if(optional1.isPresent()){
-            itemRepository.deleteById(id);
+            itemRepository.deleteByCode(code);
             return ResponseEntity.ok("Item deleted successfully!");
         }else {
-            Optional<SaleItems> optional2 = saleItemRepository.findById(id);
+            Optional<SaleItems> optional2 = saleItemRepository.findByCode(code);
             if (optional2.isPresent()) {
-                saleItemRepository.deleteById(id);
+                saleItemRepository.deleteByCode(code);
                 return ResponseEntity.ok("Item deleted successfully!");}
             else {
-                Optional<StockClearItems> optional3 = stockClearItemsRepository.findById(id);
+                Optional<StockClearItems> optional3 = stockClearItemsRepository.findByCode(code);
                 if (optional3.isPresent()) {
-                    stockClearItemsRepository.deleteById(id);
+                    stockClearItemsRepository.deleteByCode(code);
                     return ResponseEntity.ok("Item deleted successfully!");
                 } else {
                     return ResponseEntity.notFound().build();

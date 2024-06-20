@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("api/items")
@@ -22,7 +21,7 @@ public class CompositeController {
     }
 
     @DeleteMapping("/all-delete-item")
-    public ResponseEntity<String> deleteItem(@RequestParam Integer id) {
-        return compositeResService.deleteItem(id);
+    public ResponseEntity<String> deleteItem(@RequestParam String code) {
+        return compositeResService.deleteItem(code);
     }
 }

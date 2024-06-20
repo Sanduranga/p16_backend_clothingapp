@@ -14,22 +14,25 @@ import java.util.List;
 @RequestMapping(value = "api/sale-items")
 @CrossOrigin
 @AllArgsConstructor
+
+// this is sales store items controller *****************************
+
 public class SaleItemController {
 
     private SaleItemService saleItemService;
 
-    @PostMapping("/add-item")
+    @PostMapping("/add-item")  
     public ResponseEntity<SaleItems> addItem(@RequestBody CreateSaleItemDto createSaleItemDto) {
         SaleItems creteSaleItem = saleItemService.addItem(createSaleItemDto);
         return ResponseEntity.ok(creteSaleItem);
     }
 
-    @GetMapping("/get-items")
+    @GetMapping("/get-items")   // get all items
     public ResponseEntity<List<SaleItems>> getItems() {
         List<SaleItems> saleItems = saleItemService.getAllItems();
         return ResponseEntity.ok(saleItems);
     }
-    @GetMapping("/get-item")
+    @GetMapping("/get-item") // get one item using its id
     public ResponseEntity<SaleItemDto> getItem(@RequestParam Integer id) {
         return saleItemService.getItem(id);
     }

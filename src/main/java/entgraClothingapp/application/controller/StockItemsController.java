@@ -14,6 +14,9 @@ import java.util.List;
 @RequestMapping(value = "api/stock-clear-items")
 @CrossOrigin
 @AllArgsConstructor
+
+// this is stock clearing store items controller *****************************
+
 public class StockItemsController {
     private final StockItemService stockItemService;
 
@@ -23,12 +26,12 @@ public class StockItemsController {
         return ResponseEntity.ok(stockClearItem);
     }
 
-    @GetMapping("/get-items")
+    @GetMapping("/get-items")  // get all items
     public ResponseEntity<List<StockClearItems>> getItems() {
         List<StockClearItems> stockClearItems = stockItemService.getAllItems();
         return ResponseEntity.ok(stockClearItems);
     }
-    @GetMapping("/get-item")
+    @GetMapping("/get-item")  // get one item using its id
     public ResponseEntity<StockItemDto> getItem(@RequestParam Integer id) {
         return stockItemService.getItem(id);
     }

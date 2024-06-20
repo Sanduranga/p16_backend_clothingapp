@@ -15,6 +15,8 @@ import java.util.List;
 @CrossOrigin
 @AllArgsConstructor
 
+// this is normal store items controller *****************************
+
 public class ItemController {
     private ItemService itemService;
 
@@ -24,12 +26,12 @@ public class ItemController {
         return ResponseEntity.ok(createdItem);
     }
 
-    @GetMapping("/get-items")
+    @GetMapping("/get-items") // get all items
     public ResponseEntity<List<Items>> getItems() {
         List<Items> items = itemService.getAllItems();
         return ResponseEntity.ok(items);
     }
-    @GetMapping("/get-item")
+    @GetMapping("/get-item")  // get one item using its id
     public ResponseEntity<ItemDto> getItem(@RequestParam Integer id) {
         return itemService.getItem(id);
     }
