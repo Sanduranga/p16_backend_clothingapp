@@ -27,7 +27,7 @@ public class ItemController {
     }
 
     @GetMapping("/get-items") // get all items
-    public ResponseEntity<List<Items>> getItems() {
+    public ResponseEntity<List<Items>> getAllItems() {
         List<Items> items = itemService.getAllItems();
         return ResponseEntity.ok(items);
     }

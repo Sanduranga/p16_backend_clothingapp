@@ -1,6 +1,5 @@
 package entgraClothingapp.application.dto.request;
 
-import jakarta.persistence.Id;
 import lombok.Data;
 
 @Data
