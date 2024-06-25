@@ -17,6 +17,13 @@ public class ItemService {
         private final ItemRepository itemRepository;
 
     public Items addItem(CreateItemDto createItemDto) {
+        Optional<Items> sameCodeItem = itemRepository.findByCode(createItemDto.getCode());
+        // here checking whether item code is already having data base
+        if(sameCodeItem.isPresent()){
+            Items item = sameCodeItem.get();
+            item.setNumberOfItems(item.getNumberOfItems() + 1);
+            return itemRepository.save(item);
+        }else {
         Items items = new Items();
         items.setItemTitle(createItemDto.getItemTitle());
         items.setItemType(createItemDto.getItemType());
@@ -31,7 +38,7 @@ public class ItemService {
         items.setCode(createItemDto.getCode());
         items.setNumberOfItems(createItemDto.getNumberOfItems());
         items.setStatus(createItemDto.getStatus());
-        return itemRepository.save(items);
+        return itemRepository.save(items);}
     }
 
     public List<Items> getAllItems() {
