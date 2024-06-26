@@ -9,7 +9,7 @@ public class CreateSaleItemDto {
     private Integer buyingPrice;
     private Integer salePercentage;
     private Integer salePrice;
-    private Integer sellingPrice;
+    private Integer startingPrice;
     private String code;
     private String itemTitle;
     private String itemType;

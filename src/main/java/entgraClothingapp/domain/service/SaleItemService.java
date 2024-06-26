@@ -31,7 +31,7 @@ public class SaleItemService {
         saleItem.setSellerName(createSaleItemDto.getSellerName());
         saleItem.setSalePercentage(createSaleItemDto.getSalePercentage());
         saleItem.setCode(createSaleItemDto.getCode());
-        saleItem.setSellingPrice(createSaleItemDto.getSellingPrice());
+        saleItem.setStartingPrice(createSaleItemDto.getStartingPrice());
         saleItem.setNumberOfItems(createSaleItemDto.getNumberOfItems());
         return saleItemRepository.save(saleItem);
     }

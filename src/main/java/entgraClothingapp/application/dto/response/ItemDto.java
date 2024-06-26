@@ -16,6 +16,6 @@ public class ItemDto {
     private String status;
     private Integer numberOfItems;
     private Integer buyingPrice;
-    private Integer sellingPrice;
+    private Integer startingPrice;
     private Integer profitPercentage;
 }

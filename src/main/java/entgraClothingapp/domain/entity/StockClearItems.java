@@ -16,7 +16,7 @@ public class StockClearItems {
     private Integer stockClearingPrice;
     private Integer buyingPrice;
     private Integer numberOfItems;
-    private Integer sellingPrice;
+    private Integer startingPrice;
     private String code;
     private String itemTitle;
     private String itemType;

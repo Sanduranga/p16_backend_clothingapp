@@ -33,7 +33,7 @@ public class ItemService {
         items.setMaterialName(createItemDto.getMaterialName());
         items.setProfitPercentage(createItemDto.getProfitPercentage());
         items.setSellerName(createItemDto.getSellerName());
-        items.setSellingPrice(createItemDto.getSellingPrice());
+        items.setStartingPrice(createItemDto.getStartingPrice());
         items.setDescription(createItemDto.getDescription());
         items.setCode(createItemDto.getCode());
         items.setNumberOfItems(createItemDto.getNumberOfItems());
@@ -60,7 +60,7 @@ public class ItemService {
             itemDto.setMaterialName(items.getMaterialName());
             itemDto.setProfitPercentage(items.getProfitPercentage());
             itemDto.setSellerName(items.getSellerName());
-            itemDto.setSellingPrice(items.getSellingPrice());
+            itemDto.setStartingPrice(items.getStartingPrice());
             itemDto.setDescription(items.getDescription());
             itemDto.setNumberOfItems(items.getNumberOfItems());
             itemDto.setStatus(items.getStatus());
@@ -92,7 +92,7 @@ public class ItemService {
             items.setMaterialName(createItemDto.getMaterialName());
             items.setProfitPercentage(createItemDto.getProfitPercentage());
             items.setSellerName(createItemDto.getSellerName());
-            items.setSellingPrice(createItemDto.getSellingPrice());
+            items.setStartingPrice(createItemDto.getStartingPrice());
             items.setDescription(createItemDto.getDescription());
             items.setCode(createItemDto.getCode());
             items.setNumberOfItems(createItemDto.getNumberOfItems());

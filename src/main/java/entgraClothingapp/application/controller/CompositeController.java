@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("api/items")
+@RequestMapping("api/composite")
 @CrossOrigin
 @AllArgsConstructor
 public class CompositeController {

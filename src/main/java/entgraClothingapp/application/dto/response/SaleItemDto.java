@@ -18,4 +18,5 @@ public class SaleItemDto {
     private Integer buyingPrice;
     private Integer salePrice;
     private Integer salePercentage;
+    private Integer startingPrice;
 }

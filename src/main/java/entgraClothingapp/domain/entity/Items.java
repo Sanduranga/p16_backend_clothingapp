@@ -22,7 +22,7 @@ public class Items {
     private String itemType;
     private String sellerName;
     private Integer buyingPrice;
-    private Integer sellingPrice;
+    private Integer startingPrice;
     private Integer profitPercentage;
     private String status;
     private String itemColor;

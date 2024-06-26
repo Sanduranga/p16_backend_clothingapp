@@ -28,7 +28,7 @@ public class StockItemService {
         stockClearItems.setDescription(createStockItemDto.getDescription());
         stockClearItems.setItemSize(createStockItemDto.getItemSize());
         stockClearItems.setSellerName(createStockItemDto.getSellerName());
-        stockClearItems.setSellingPrice(createStockItemDto.getSellingPrice());
+        stockClearItems.setStartingPrice(createStockItemDto.getStartingPrice());
         stockClearItems.setCode(createStockItemDto.getCode());
         stockClearItems.setNumberOfItems(createStockItemDto.getNumberOfItems());
         stockClearItems.setStockClearingPrice(createStockItemDto.getStockClearingPrice());
@@ -52,7 +52,7 @@ public class StockItemService {
             stockItemDto.setDescription(stockClearItems.getDescription());
             stockItemDto.setItemSize(stockClearItems.getItemSize());
             stockItemDto.setSellerName(stockClearItems.getSellerName());
-            stockItemDto.setSellingPrice(stockClearItems.getSellingPrice());
+            stockItemDto.setStartingPrice(stockClearItems.getStartingPrice());
             stockItemDto.setCode(stockClearItems.getCode());
             stockItemDto.setNumberOfItems(stockClearItems.getNumberOfItems());
             return ResponseEntity.ok(stockItemDto);
