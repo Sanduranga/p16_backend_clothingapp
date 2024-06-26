@@ -32,6 +32,7 @@ public class StockItemService {
         stockClearItems.setCode(createStockItemDto.getCode());
         stockClearItems.setNumberOfItems(createStockItemDto.getNumberOfItems());
         stockClearItems.setStockClearingPrice(createStockItemDto.getStockClearingPrice());
+        stockClearItems.setProfitPercentage(createStockItemDto.getProfitPercentage());
         return stockItemRepository.save(stockClearItems);
     }
 

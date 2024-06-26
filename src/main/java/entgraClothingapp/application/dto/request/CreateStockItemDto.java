@@ -9,6 +9,7 @@ public class CreateStockItemDto {
     private Integer buyingPrice;
     private Integer startingPrice;
     private Integer numberOfItems;
+    private Integer profitPercentage;
     private String code;
     private String itemTitle;
     private String itemType;

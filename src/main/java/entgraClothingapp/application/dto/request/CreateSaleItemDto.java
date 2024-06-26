@@ -6,6 +6,7 @@ import lombok.Data;
 public class CreateSaleItemDto {
     private Integer id;
     private Integer numberOfItems;
+    private Integer profitPercentage;
     private Integer buyingPrice;
     private Integer salePercentage;
     private Integer salePrice;

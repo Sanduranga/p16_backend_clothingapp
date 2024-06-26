@@ -33,6 +33,7 @@ public class SaleItemService {
         saleItem.setCode(createSaleItemDto.getCode());
         saleItem.setStartingPrice(createSaleItemDto.getStartingPrice());
         saleItem.setNumberOfItems(createSaleItemDto.getNumberOfItems());
+        saleItem.setProfitPercentage(createSaleItemDto.getProfitPercentage());
         return saleItemRepository.save(saleItem);
     }
 
