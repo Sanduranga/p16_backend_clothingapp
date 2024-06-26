@@ -21,13 +21,16 @@ public class Items {
     private String itemTitle;
     private String itemType;
     private String sellerName;
-    private Integer buyingPrice;
-    private Integer startingPrice;
-    private Integer profitPercentage;
     private String status;
     private String itemColor;
     private String itemSize;
     private String materialName;
     private String description;
     private Integer numberOfItems;
+    private Integer salePrice;
+    private Integer salePercentage;
+    private Integer stockClearingPrice;
+    private Integer buyingPrice;
+    private Integer startingPrice;
+    private Integer profitPercentage;
 }
