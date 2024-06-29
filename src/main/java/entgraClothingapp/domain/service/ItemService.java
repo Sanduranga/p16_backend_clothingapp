@@ -80,10 +80,10 @@ public class ItemService {
         }
     }
 
-    public ResponseEntity<String> updateItem(Integer id, CreateItemDto createItemDto) {
-        Optional<Items> optionalItem = itemRepository.findById(id);
-        if(optionalItem.isPresent()){
-            Items items = optionalItem.get();
+    public ResponseEntity<String> updateItem(CreateItemDto createItemDto) {
+        // Optional<Items> optionalItem = itemRepository.findById(id);
+        // if(optionalItem.isPresent()){
+            Items items = new Items();
             items.setItemTitle(createItemDto.getItemTitle());
             items.setItemType(createItemDto.getItemType());
             items.setItemColor(createItemDto.getItemColor());
@@ -98,10 +98,11 @@ public class ItemService {
             items.setNumberOfItems(createItemDto.getNumberOfItems());
             items.setStatus(createItemDto.getStatus());
             itemRepository.save(items);
-            return ResponseEntity.ok("Item updated successfully!");
+            return ResponseEntity.status(201).body("Item updated successfully!");
 
-        }else {
-            return ResponseEntity.notFound().build();
-        }
+    //     }else {
+    //         return ResponseEntity.notFound().build();
+    //     }
+    // }
     }
 }

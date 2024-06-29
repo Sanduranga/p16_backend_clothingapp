@@ -40,7 +40,7 @@ public class ItemController {
         return itemService.deleteItem(id);
     }
     @PutMapping("/update-item")
-    public ResponseEntity<String> updateItem (@RequestParam Integer id, @RequestBody CreateItemDto createItemDto) {
-        return itemService.updateItem(id ,createItemDto);
+    public ResponseEntity<String> updateItem (@RequestBody CreateItemDto createItemDto) {
+        return itemService.updateItem(createItemDto);
     }
 }
