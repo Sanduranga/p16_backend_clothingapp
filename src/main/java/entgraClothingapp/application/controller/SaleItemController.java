@@ -24,7 +24,7 @@ public class SaleItemController {
     @PostMapping("/add-item")  
     public ResponseEntity<SaleItems> addItem(@RequestBody CreateSaleItemDto createSaleItemDto) {
         SaleItems creteSaleItem = saleItemService.addItem(createSaleItemDto);
-        return ResponseEntity.ok(creteSaleItem);
+        return ResponseEntity.status(201).body(creteSaleItem);
     }
 
     @GetMapping("/get-items")   // get all items

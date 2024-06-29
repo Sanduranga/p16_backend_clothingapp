@@ -23,7 +23,7 @@ public class StockItemsController {
     @PostMapping("/add-item")
     public ResponseEntity<StockClearItems> addItem(@RequestBody CreateStockItemDto createStockItemDto) {
         StockClearItems stockClearItem = stockItemService.addItem(createStockItemDto);
-        return ResponseEntity.ok(stockClearItem);
+        return ResponseEntity.status(201).body(stockClearItem);
     }
 
     @GetMapping("/get-items")  // get all items

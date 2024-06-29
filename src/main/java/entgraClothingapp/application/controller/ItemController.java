@@ -23,7 +23,7 @@ public class ItemController {
     @PostMapping("/add-item")
     public ResponseEntity<Items> addItem(@RequestBody CreateItemDto createItemDto) {
         Items createdItem = itemService.addItem(createItemDto);
-        return ResponseEntity.ok(createdItem);
+        return ResponseEntity.status(201).body(createdItem);
     }
 
     @GetMapping("/get-items") // get all items
