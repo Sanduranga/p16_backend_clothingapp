@@ -16,4 +16,9 @@ public class CreateItemDto {
         private Integer buyingPrice;
         private Integer startingPrice;
         private Integer profitPercentage;
+        private Integer salePercentage;
+        private Integer salePrice;
+        private Integer stockClearingPrice;
+        private Integer id;
+
 }

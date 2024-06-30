@@ -70,20 +70,20 @@ public class ItemService {
         }
     }
 
-    public ResponseEntity<Void> deleteItem(Integer id) {
-        Optional<Items> optinalItem = itemRepository.findById(id);
+    public ResponseEntity<Void> deleteItem(String code) {
+        Optional<Items> optinalItem = itemRepository.findByCode(code);
         if(optinalItem.isPresent()){
-            itemRepository.deleteById(id);
+            itemRepository.deleteByCode(code);
             return ResponseEntity.noContent().build();
         }else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    public ResponseEntity<String> updateItem(CreateItemDto createItemDto) {
-        // Optional<Items> optionalItem = itemRepository.findById(id);
-        // if(optionalItem.isPresent()){
-            Items items = new Items();
+    public ResponseEntity<Items> updateItem(CreateItemDto createItemDto) {
+        Optional<Items> optionalItem = itemRepository.findById(createItemDto.getId());
+        if(optionalItem.isPresent()){
+            Items items = optionalItem.get();
             items.setItemTitle(createItemDto.getItemTitle());
             items.setItemType(createItemDto.getItemType());
             items.setItemColor(createItemDto.getItemColor());
@@ -97,12 +97,15 @@ public class ItemService {
             items.setCode(createItemDto.getCode());
             items.setNumberOfItems(createItemDto.getNumberOfItems());
             items.setStatus(createItemDto.getStatus());
+            items.setSalePercentage(createItemDto.getSalePercentage());
+            items.setStockClearingPrice(createItemDto.getStockClearingPrice());
+            items.setSalePrice(createItemDto.getSalePrice());
             itemRepository.save(items);
-            return ResponseEntity.status(201).body("Item updated successfully!");
+            return ResponseEntity.ok(items);
 
-    //     }else {
-    //         return ResponseEntity.notFound().build();
-    //     }
-    // }
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
+    
 }
