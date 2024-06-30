@@ -30,20 +30,26 @@ public class UserService {
                 userDto.setEmail(user.getEmail());
                 userDto.setName("");
                 return ResponseEntity.status(401).body(userDto);
-            }
-            
+            }          
         }
         else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    public Users addUser(CreateUsersDto createUsersDto) {
+    public ResponseEntity<Users> addUser(CreateUsersDto createUsersDto) {
+        Optional<Users> optinalUser = userRepository.findByEmail(createUsersDto.getEmail());
+        if (optinalUser.isPresent()) {
+            // here it checks wheather the email is already taken or not
+            return ResponseEntity.status(401).body(null);
+        }else{
         Users user = new Users();
         user.setName(createUsersDto.getName());
         user.setEmail(createUsersDto.getEmail());
         user.setPassword(createUsersDto.getPassword());
-        return userRepository.save(user);
+        userRepository.save(user);
+        return ResponseEntity.status(201).body(user);
+        }
     }
 
 }
