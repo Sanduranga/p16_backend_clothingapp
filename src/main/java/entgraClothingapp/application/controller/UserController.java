@@ -18,8 +18,9 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/get-user")
-    public ResponseEntity<UserDto> getUser(@RequestParam String email){
-        return userService.getUser(email);
+    public ResponseEntity<UserDto> getUser(@RequestParam String email, @RequestParam String password){
+        return userService.getUser(email, password);
+      
     }
 
     @PostMapping("/add-user")

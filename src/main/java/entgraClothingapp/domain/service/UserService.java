@@ -17,14 +17,21 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public ResponseEntity<UserDto> getUser(String email) {
+    public ResponseEntity<UserDto> getUser(String email, String password) {
         UserDto userDto = new UserDto();
         Optional<Users> optionalUsers = userRepository.findByEmail(email);
         if(optionalUsers.isPresent()) {
             Users user = optionalUsers.get();
-            userDto.setEmail(user.getEmail());
-            userDto.setName(user.getName());
-            return ResponseEntity.ok(userDto);
+            if (user.getPassword().equals(password)) {
+                userDto.setEmail(user.getEmail());
+                userDto.setName(user.getName());
+                return ResponseEntity.ok(userDto);
+            } else {
+                userDto.setEmail(user.getEmail());
+                userDto.setName("");
+                return ResponseEntity.status(401).body(userDto);
+            }
+            
         }
         else {
             return ResponseEntity.notFound().build();
@@ -36,7 +43,6 @@ public class UserService {
         user.setName(createUsersDto.getName());
         user.setEmail(createUsersDto.getEmail());
         user.setPassword(createUsersDto.getPassword());
-        user.setUsertype(createUsersDto.getUserType());
         return userRepository.save(user);
     }
 
