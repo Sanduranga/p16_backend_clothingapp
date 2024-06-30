@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Items {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private String code;
     private String itemTitle;
     private String itemType;
@@ -26,11 +26,11 @@ public class Items {
     private String itemSize;
     private String materialName;
     private String description;
-    private Integer numberOfItems;
-    private Integer salePrice;
-    private Integer salePercentage;
-    private Integer stockClearingPrice;
-    private Integer buyingPrice;
-    private Integer startingPrice;
-    private Integer profitPercentage;
+    private int numberOfItems;
+    private int salePrice;
+    private int salePercentage;
+    private int stockClearingPrice;
+    private int buyingPrice;
+    private int startingPrice;
+    private int profitPercentage;
 }
