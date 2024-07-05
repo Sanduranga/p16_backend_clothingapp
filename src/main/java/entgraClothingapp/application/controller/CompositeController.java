@@ -20,8 +20,8 @@ public class CompositeController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/all-delete-item")
-    public ResponseEntity<Void> deleteItem(@RequestParam String code) {
-        return compositeResService.deleteItem(code);
-    }
+//    @DeleteMapping("/all-delete-item")
+//    public ResponseEntity<Void> deleteItem(@RequestParam String code) {
+//        return compositeResService.deleteItem(code);
+//    }
 }

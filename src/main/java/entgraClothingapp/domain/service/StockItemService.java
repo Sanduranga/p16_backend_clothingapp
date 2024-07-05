@@ -2,7 +2,9 @@ package entgraClothingapp.domain.service;
 
 import entgraClothingapp.application.dto.request.CreateStockItemDto;
 import entgraClothingapp.application.dto.response.StockItemDto;
+import entgraClothingapp.domain.entity.Items;
 import entgraClothingapp.domain.entity.StockClearItems;
+import entgraClothingapp.external.repository.ItemRepository;
 import entgraClothingapp.external.repository.StockItemRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,25 +16,17 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class StockItemService {
+    private ItemRepository itemRepository;
     private StockItemRepository stockItemRepository;
 
     public StockClearItems addItem(CreateStockItemDto createStockItemDto) {
+        Items items = itemRepository.findById(createStockItemDto.getId())
+                .orElseThrow(() -> new RuntimeException("Item not found in the item's entity"));
+                items.setStatus("stockClearingStore"); // change item's state
+
         StockClearItems stockClearItems = new StockClearItems();
-        stockClearItems.setId(createStockItemDto.getId());
-        stockClearItems.setBuyingPrice(createStockItemDto.getBuyingPrice());
-        stockClearItems.setStatus(createStockItemDto.getStatus());
-        stockClearItems.setItemColor(createStockItemDto.getItemColor());
-        stockClearItems.setItemTitle(createStockItemDto.getItemTitle());
-        stockClearItems.setItemType(createStockItemDto.getItemType());
-        stockClearItems.setMaterialName(createStockItemDto.getMaterialName());
-        stockClearItems.setDescription(createStockItemDto.getDescription());
-        stockClearItems.setItemSize(createStockItemDto.getItemSize());
-        stockClearItems.setSellerName(createStockItemDto.getSellerName());
-        stockClearItems.setStartingPrice(createStockItemDto.getStartingPrice());
-        stockClearItems.setCode(createStockItemDto.getCode());
-        stockClearItems.setNumberOfItems(createStockItemDto.getNumberOfItems());
+        stockClearItems.setItems(items);
         stockClearItems.setStockClearingPrice(createStockItemDto.getStockClearingPrice());
-        stockClearItems.setProfitPercentage(createStockItemDto.getProfitPercentage());
         return stockItemRepository.save(stockClearItems);
     }
 
@@ -40,33 +34,29 @@ public class StockItemService {
         return  stockItemRepository.findAll();
     }
 
-    public ResponseEntity<StockItemDto> getItem(Integer id) {
+    public ResponseEntity<StockItemDto> getItem(Long id) {
         StockItemDto stockItemDto = new StockItemDto();
         Optional<StockClearItems> optionalItem = stockItemRepository.findById(id);
         if(optionalItem.isPresent()){
             StockClearItems stockClearItems = optionalItem.get();
-            stockItemDto.setBuyingPrice(stockClearItems.getBuyingPrice());
-            stockItemDto.setItemColor(stockClearItems.getItemColor());
-            stockItemDto.setItemTitle(stockClearItems.getItemTitle());
-            stockItemDto.setItemType(stockClearItems.getItemType());
             stockItemDto.setId(stockClearItems.getId());
-            stockItemDto.setDescription(stockClearItems.getDescription());
-            stockItemDto.setItemSize(stockClearItems.getItemSize());
-            stockItemDto.setSellerName(stockClearItems.getSellerName());
-            stockItemDto.setStartingPrice(stockClearItems.getStartingPrice());
-            stockItemDto.setCode(stockClearItems.getCode());
-            stockItemDto.setNumberOfItems(stockClearItems.getNumberOfItems());
             return ResponseEntity.ok(stockItemDto);
         }else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    public ResponseEntity<Void> deleteItem(Integer id) {
-        Optional<StockClearItems> optionalSaleItems = stockItemRepository.findById(id);
-        if(optionalSaleItems.isPresent()){
-            stockItemRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteItem(Long id) {
+        StockClearItems stockClearItems = stockItemRepository.findById(id).orElse(null);
+        if(stockClearItems != null){
+            Items item = stockClearItems.getItems();
+                if(item != null){
+                    item.setStockClearItems(null); // update the stockClearItem of Items entity as `null`
+                    item.setStatus("stockClearingStore"); // update the status of Items entity as `normalStore`
+                    itemRepository.save(item);
+                }
+                stockItemRepository.delete(stockClearItems);
+                return ResponseEntity.noContent().build();
         }else {
             return ResponseEntity.notFound().build();
         }

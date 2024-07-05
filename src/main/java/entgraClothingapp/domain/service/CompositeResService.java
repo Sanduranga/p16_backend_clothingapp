@@ -28,22 +28,23 @@ public class CompositeResService {
         return new CompositeRes(itemsData, saleItemsData, stockClearItemsData);
     }
 
-    public ResponseEntity<Void> deleteItem( String code) {
-        Optional<Items> optional1 = itemRepository.findByCode(code);
-        if(optional1.isPresent()){
-            itemRepository.deleteByCode(code);
-            return ResponseEntity.noContent().build();
-        }else {
-            Optional<SaleItems> optional2 = saleItemRepository.findByCode(code);
-            if (optional2.isPresent()) {
-                saleItemRepository.deleteByCode(code);
-                return ResponseEntity.noContent().build();}
-            else {
-                Optional<StockClearItems> optional3 = stockClearItemsRepository.findByCode(code);
-                if (optional3.isPresent()) {
-                    stockClearItemsRepository.deleteByCode(code);
-                    return ResponseEntity.noContent().build();
-                } else {
-                    return ResponseEntity.notFound().build();
-                }
-            }}}}
+//    public ResponseEntity<Void> deleteItem( String code) {
+//        Optional<Items> optional1 = itemRepository.findByCode(code);
+//        if(optional1.isPresent()){
+//            itemRepository.deleteByCode(code);
+//            return ResponseEntity.noContent().build();
+//        }else {
+//            Optional<SaleItems> optional2 = saleItemRepository.findByCode(code);
+//            if (optional2.isPresent()) {
+//                saleItemRepository.deleteByCode(code);
+//                return ResponseEntity.noContent().build();}
+//            else {
+//                Optional<StockClearItems> optional3 = stockClearItemsRepository.findByCode(code);
+//                if (optional3.isPresent()) {
+//                    stockClearItemsRepository.deleteByCode(code);
+//                    return ResponseEntity.noContent().build();
+//                } else {
+//                    return ResponseEntity.notFound().build();
+//                }
+//            }}}
+          }

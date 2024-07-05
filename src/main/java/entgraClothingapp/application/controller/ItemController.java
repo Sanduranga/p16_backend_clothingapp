@@ -32,7 +32,7 @@ public class ItemController {
         return ResponseEntity.ok(items);
     }
     @GetMapping("/get-item")  // get one item using its id
-    public ResponseEntity<ItemDto> getItem(@RequestParam Integer id) {
+    public ResponseEntity<ItemDto> getItem(@RequestParam long id) {
         return itemService.getItem(id);
     }
     @DeleteMapping("/delete-item")

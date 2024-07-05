@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class ItemDto {
-    private int id;
+    private long id;
     private String code;
     private String itemTitle;
     private String itemType;
@@ -16,6 +16,6 @@ public class ItemDto {
     private String status;
     private int numberOfItems;
     private int buyingPrice;
-    private int startingPrice;
-    private int profitPercentage;
+    private float startingPrice;
+    private float profitPercentage;
 }

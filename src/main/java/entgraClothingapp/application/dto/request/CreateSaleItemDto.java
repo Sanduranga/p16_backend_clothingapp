@@ -4,13 +4,7 @@ import lombok.Data;
 
 @Data
 public class CreateSaleItemDto {
-    private Integer id;
-    private Integer numberOfItems;
-    private Integer profitPercentage;
-    private Integer buyingPrice;
-    private Integer salePercentage;
-    private Integer salePrice;
-    private Integer startingPrice;
+    private long id;
     private String code;
     private String itemTitle;
     private String itemType;
@@ -20,4 +14,11 @@ public class CreateSaleItemDto {
     private String materialName;
     private String description;
     private String status;
+    private int numberOfItems;
+    private int buyingPrice;
+    private float startingPrice;
+    private float profitPercentage;
+    private float salePercentage;
+    private float salePrice;
+    private int stockClearingPrice;
 }

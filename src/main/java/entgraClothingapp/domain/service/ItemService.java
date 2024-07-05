@@ -4,6 +4,7 @@ import entgraClothingapp.application.dto.request.CreateItemDto;
 import entgraClothingapp.application.dto.response.ItemDto;
 import entgraClothingapp.domain.entity.Items;
 import entgraClothingapp.external.repository.ItemRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public ResponseEntity<ItemDto> getItem(Integer id) {
+    public ResponseEntity<ItemDto> getItem(long id) {
         ItemDto itemDto = new ItemDto();
         Optional<Items> optionalItem = itemRepository.findById(id);
         if(optionalItem.isPresent()){
@@ -69,7 +70,8 @@ public class ItemService {
             return ResponseEntity.notFound().build();
         }
     }
-
+    
+    @Transactional
     public ResponseEntity<Void> deleteItem(String code) {
         Optional<Items> optinalItem = itemRepository.findByCode(code);
         if(optinalItem.isPresent()){
@@ -97,9 +99,9 @@ public class ItemService {
             items.setCode(createItemDto.getCode());
             items.setNumberOfItems(createItemDto.getNumberOfItems());
             items.setStatus(createItemDto.getStatus());
-            items.setSalePercentage(createItemDto.getSalePercentage());
-            items.setStockClearingPrice(createItemDto.getStockClearingPrice());
-            items.setSalePrice(createItemDto.getSalePrice());
+//            items.setSalePercentage(createItemDto.getSalePercentage());
+//            items.setStockClearingPrice(createItemDto.getStockClearingPrice());
+//            items.setSalePrice(createItemDto.getSalePrice());
             itemRepository.save(items);
             return ResponseEntity.ok(items);
 

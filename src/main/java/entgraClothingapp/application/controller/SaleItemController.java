@@ -33,11 +33,11 @@ public class SaleItemController {
         return ResponseEntity.ok(saleItems);
     }
     @GetMapping("/get-item") // get one item using its id
-    public ResponseEntity<SaleItemDto> getItem(@RequestParam Integer id) {
+    public ResponseEntity<SaleItemDto> getItem(@RequestParam long id) {
         return saleItemService.getItem(id);
     }
     @DeleteMapping("/delete-item")
-    public ResponseEntity<Void> deleteItem(@RequestParam Integer id) {
+    public ResponseEntity<Void> deleteItem(@RequestParam long id) {
         return  saleItemService.deleteItem(id);
     }
 }
