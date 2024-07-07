@@ -23,21 +23,20 @@ public class SaleItemController {
 
     @PostMapping("/add-item")  
     public ResponseEntity<SaleItems> addItem(@RequestBody CreateSaleItemDto createSaleItemDto) {
-        SaleItems creteSaleItem = saleItemService.addItem(createSaleItemDto);
-        return ResponseEntity.status(201).body(creteSaleItem);
+        return saleItemService.addItem(createSaleItemDto);
     }
 
     @GetMapping("/get-items")   // get all items
     public ResponseEntity<List<SaleItems>> getItems() {
-        List<SaleItems> saleItems = saleItemService.getAllItems();
-        return ResponseEntity.ok(saleItems);
+        return saleItemService.getAllItems();
     }
     @GetMapping("/get-item") // get one item using its id
-    public ResponseEntity<SaleItemDto> getItem(@RequestParam long id) {
-        return saleItemService.getItem(id);
+    public ResponseEntity<SaleItemDto> getItem(@RequestParam long code) {
+        return saleItemService.getItem(code);
     }
+
     @DeleteMapping("/delete-item")
-    public ResponseEntity<Void> deleteItem(@RequestParam long id) {
-        return  saleItemService.deleteItem(id);
+    public ResponseEntity<Void> deleteItem(@RequestParam long code) {
+        return  saleItemService.deleteItem(code);
     }
 }

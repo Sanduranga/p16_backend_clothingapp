@@ -22,21 +22,21 @@ public class StockItemsController {
 
     @PostMapping("/add-item")
     public ResponseEntity<StockClearItems> addItem(@RequestBody CreateStockItemDto createStockItemDto) {
-        StockClearItems stockClearItem = stockItemService.addItem(createStockItemDto);
-        return ResponseEntity.status(201).body(stockClearItem);
+       return stockItemService.addItem(createStockItemDto);
     }
 
     @GetMapping("/get-items")  // get all items
     public ResponseEntity<List<StockClearItems>> getItems() {
-        List<StockClearItems> stockClearItems = stockItemService.getAllItems();
-        return ResponseEntity.ok(stockClearItems);
+        return stockItemService.getAllItems();
     }
+
     @GetMapping("/get-item")  // get one item using its id
-    public ResponseEntity<StockItemDto> getItem(@RequestParam long id) {
-        return stockItemService.getItem(id);
+    public ResponseEntity<StockItemDto> getItem(@RequestParam long code) {
+        return stockItemService.getItem(code);
     }
+
     @DeleteMapping("/delete-item")
-    public ResponseEntity<Void> deleteItem(@RequestParam long id) {
-        return  stockItemService.deleteItem(id);
+    public ResponseEntity<Void> deleteItem(@RequestParam long code) {
+        return  stockItemService.deleteItem(code);
     }
 }

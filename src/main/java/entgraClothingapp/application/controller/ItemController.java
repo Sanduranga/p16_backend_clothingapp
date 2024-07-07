@@ -7,7 +7,6 @@ import entgraClothingapp.domain.service.ItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -22,23 +21,24 @@ public class ItemController {
 
     @PostMapping("/add-item")
     public ResponseEntity<Items> addItem(@RequestBody CreateItemDto createItemDto) {
-        Items createdItem = itemService.addItem(createItemDto);
-        return ResponseEntity.status(201).body(createdItem);
+        return itemService.addItem(createItemDto);
     }
 
     @GetMapping("/get-items") // get all items
     public ResponseEntity<List<Items>> getAllItems() {
-        List<Items> items = itemService.getAllItems();
-        return ResponseEntity.ok(items);
+       return itemService.getAllItems();
     }
+
     @GetMapping("/get-item")  // get one item using its id
-    public ResponseEntity<ItemDto> getItem(@RequestParam long id) {
-        return itemService.getItem(id);
+    public ResponseEntity<ItemDto> getItem(@RequestParam long code) {
+        return itemService.getItem(code);
     }
+
     @DeleteMapping("/delete-item")
-    public ResponseEntity<Void> deleteItem(@RequestParam String code) {
+    public ResponseEntity<Void> deleteItem(@RequestParam Long code) {
         return itemService.deleteItem(code);
     }
+
     @PutMapping("/update-item")
     public ResponseEntity<Items> updateItem ( @RequestBody CreateItemDto createItemDto) {
         return itemService.updateItem(createItemDto);
