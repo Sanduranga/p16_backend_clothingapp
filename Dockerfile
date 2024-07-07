@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy the pom.xml and download dependencies
 COPY pom.xml .
-# RUN mvn dependency:go-offline
+RUN mvn dependency:go-offline
 
 # Copy the project source code
 COPY src ./src
@@ -21,7 +21,6 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Copy the built jar file from the first stage
-# COPY --from=builder app/target/*.jar entgra-backend.jar
 ADD target/entgra-backend.jar entgra-backend.jar
 
 # Define the command to run the application
