@@ -13,8 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface ItemRepository extends JpaRepository<Items, Long> {
 
     @EntityGraph(value = "Items.detail", type = EntityGraph.EntityGraphType.LOAD)
-    Optional<Items> findById(long id);
 
-    Optional<Items> findByCode(String code);
-    void deleteByCode(String code);
+    Optional<Items> findByCode(Long code);
+    void deleteByCode(Long code);
 }
