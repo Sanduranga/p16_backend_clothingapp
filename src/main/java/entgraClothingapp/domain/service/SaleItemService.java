@@ -19,30 +19,37 @@ public class SaleItemService {
     private final ItemRepository itemRepository;
     private final SaleItemRepository saleItemRepository;
 
-public SaleItems addItem(CreateSaleItemDto createSaleItemDto) {
-    Items items = itemRepository.findById(createSaleItemDto.getId())
-            .orElseThrow(() -> new RuntimeException("Item not found in the item's entity"));
-            items.setStatus("saleStore"); // change item's state
-
-    SaleItems saleItems = new SaleItems();
-    saleItems.setItems(items);
-    saleItems.setSalePrice(createSaleItemDto.getSalePrice());
-    saleItems.setSalePercentage(createSaleItemDto.getSalePercentage());
-    return saleItemRepository.save(saleItems);
-}
-
-    public List<SaleItems> getAllItems() {
-        return  saleItemRepository.findAll();
+    public ResponseEntity<SaleItems> addItem(CreateSaleItemDto createSaleItemDto) {
+        Items item = itemRepository.findByCode(createSaleItemDto.getItemsCode())
+                .orElse(null);
+        if (item != null){
+            item.setStatus("saleStore"); // change item's state
+            SaleItems saleItem = new SaleItems();
+            saleItem.setItems(item);
+            saleItem.setItemsCode(createSaleItemDto.getItemsCode());
+            saleItem.setSalePrice(createSaleItemDto.getSalePrice());
+            saleItem.setSalePercentage(createSaleItemDto.getSalePercentage());
+            saleItemRepository.save(saleItem);
+            return ResponseEntity.ok(saleItem);
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    public ResponseEntity<SaleItemDto> getItem(Long id) {
+    public ResponseEntity<List<SaleItems>> getAllItems() {
+        List<SaleItems> saleItems = saleItemRepository.findAll();
+        return ResponseEntity.ok(saleItems);
+    }
+
+    @Transactional
+    public ResponseEntity<SaleItemDto> getItem(Long code) {
         SaleItemDto saleItemDto = new SaleItemDto();
-        Optional<SaleItems> optionalItem = saleItemRepository.findById(id);
+        Optional<SaleItems> optionalItem = saleItemRepository.findByItemsCode(code);
         if(optionalItem.isPresent()){
             SaleItems saleItem = optionalItem.get();
             saleItemDto.setSalePrice(saleItem.getSalePrice());
-            saleItemDto.setId(saleItem.getId());
             saleItemDto.setSalePercentage(saleItem.getSalePercentage());
+            saleItemDto.setItems(saleItem.getItems());
             return ResponseEntity.ok(saleItemDto);
         }else {
             return ResponseEntity.notFound().build();
@@ -50,17 +57,14 @@ public SaleItems addItem(CreateSaleItemDto createSaleItemDto) {
     }
 
     @Transactional
-    public ResponseEntity<Void> deleteItem(Long id) {
-       SaleItems saleItems = saleItemRepository.findById(id).orElse(null);
-        if(saleItems != null){
-            Items item = saleItems.getItems();
-                if(item != null){
-                    item.setSaleItems(null); // update the saleItem of Items entity as `null`
-                    item.setStatus("normalStore"); // update the status of Items entity as `normalStore`
-                    itemRepository.save(item);
-                }
-                // saleItemRepository.delete(saleItems);
-                return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteItem(Long code) {
+       Items item = itemRepository.findByCode(code).orElse(null);
+        if(item != null){
+            item.setSaleItems(null); // update the saleItem of Items entity as `null`
+            item.setStatus("normalStore"); // update the status of Items entity as `normalStore`
+            itemRepository.save(item);
+                // since `orphanRemoval = true`, when update `item.setSaleItems` as `null`, relevant `SaleItems` entity will be automatically removed from the database.
+            return ResponseEntity.noContent().build();
         }else {
             return ResponseEntity.notFound().build();
         }

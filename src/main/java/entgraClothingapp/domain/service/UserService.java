@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,6 +38,11 @@ public class UserService {
         }
     }
 
+    public ResponseEntity<List<Users>> getUsers() {
+        List<Users> users = userRepository.findAll();
+        return ResponseEntity.ok(users);
+    }
+
     public ResponseEntity<Users> addUser(CreateUsersDto createUsersDto) {
         Optional<Users> optinalUser = userRepository.findByEmail(createUsersDto.getEmail());
         if (optinalUser.isPresent()) {
@@ -49,6 +55,16 @@ public class UserService {
         user.setPassword(createUsersDto.getPassword());
         userRepository.save(user);
         return ResponseEntity.status(201).body(user);
+        }
+    }
+
+    public ResponseEntity<Void> deleteUser(String email) {
+        Users user = userRepository.findByEmail(email).orElse(null);
+        if(user != null){
+            userRepository.deleteById(user.getId());
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.notFound().build();
         }
     }
 

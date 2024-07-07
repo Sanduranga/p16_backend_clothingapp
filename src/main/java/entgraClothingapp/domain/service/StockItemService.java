@@ -19,44 +19,48 @@ public class StockItemService {
     private ItemRepository itemRepository;
     private StockItemRepository stockItemRepository;
 
-    public StockClearItems addItem(CreateStockItemDto createStockItemDto) {
-        Items items = itemRepository.findById(createStockItemDto.getId())
-                .orElseThrow(() -> new RuntimeException("Item not found in the item's entity"));
-                items.setStatus("stockClearingStore"); // change item's state
-
-        StockClearItems stockClearItems = new StockClearItems();
-        stockClearItems.setItems(items);
-        stockClearItems.setStockClearingPrice(createStockItemDto.getStockClearingPrice());
-        return stockItemRepository.save(stockClearItems);
+    public ResponseEntity<StockClearItems> addItem(CreateStockItemDto createStockItemDto) {
+        Items item = itemRepository.findByCode(createStockItemDto.getItemsCode())
+                .orElse(null);
+        if (item != null) {
+            item.setStatus("stockClearingStore"); // change item's state
+            StockClearItems stockClearItem = new StockClearItems();
+            stockClearItem.setItems(item);
+            stockClearItem.setItemsCode(createStockItemDto.getItemsCode());
+            stockClearItem.setStockClearingPrice(createStockItemDto.getStockClearingPrice());
+            stockItemRepository.save(stockClearItem);
+            return ResponseEntity.status(201).body(stockClearItem);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    public List<StockClearItems> getAllItems() {
-        return  stockItemRepository.findAll();
+    public ResponseEntity<List<StockClearItems>> getAllItems() {
+        List<StockClearItems> stockClearItems = stockItemRepository.findAll();
+        return ResponseEntity.ok(stockClearItems);
     }
 
-    public ResponseEntity<StockItemDto> getItem(Long id) {
+    public ResponseEntity<StockItemDto> getItem(Long code) {
         StockItemDto stockItemDto = new StockItemDto();
-        Optional<StockClearItems> optionalItem = stockItemRepository.findById(id);
+        Optional<StockClearItems> optionalItem = stockItemRepository.findByItemsCode(code);
         if(optionalItem.isPresent()){
             StockClearItems stockClearItems = optionalItem.get();
-            stockItemDto.setId(stockClearItems.getId());
+            stockItemDto.setStockClearingPrice(stockClearItems.getStockClearingPrice());
+            stockItemDto.setItems(stockClearItems.getItems());
             return ResponseEntity.ok(stockItemDto);
         }else {
             return ResponseEntity.notFound().build();
         }
     }
 
-    public ResponseEntity<Void> deleteItem(Long id) {
-        StockClearItems stockClearItems = stockItemRepository.findById(id).orElse(null);
-        if(stockClearItems != null){
-            Items item = stockClearItems.getItems();
-                if(item != null){
-                    item.setStockClearItems(null); // update the stockClearItem of Items entity as `null`
-                    item.setStatus("stockClearingStore"); // update the status of Items entity as `normalStore`
-                    itemRepository.save(item);
-                }
-                stockItemRepository.delete(stockClearItems);
-                return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteItem(Long code) {
+        Items item = itemRepository.findByCode(code).orElse(null);
+        if(item != null){
+            item.setStockClearItems(null); // update the stockClearItem of Items entity as `null`
+            item.setStatus("normalStore"); // update the status of Items entity as `normalStore`
+            itemRepository.save(item);
+        // since `orphanRemoval = true`, when update `item.storeClearItem` as `null`, relevant `storeClearItem` entity will be automatically removed from the database.
+        return ResponseEntity.noContent().build();
         }else {
             return ResponseEntity.notFound().build();
         }

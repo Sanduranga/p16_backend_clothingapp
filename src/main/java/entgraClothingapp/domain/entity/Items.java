@@ -12,20 +12,13 @@ import lombok.NoArgsConstructor;
         @NamedAttributeNode("saleItems"),
         @NamedAttributeNode("stockClearItems")
         })
-@Table(name = "items", indexes = {
-        @Index(name = "idx_code", columnList = "code") // set code attribute as index. making `index` in most searchable attribute, we can drastacally improve the query performance of the data base.
-})
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Items {
     @Id // Specifies the primary key of an entity.
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generate the ID value.
-    private long id;
-
-    @Column(nullable = false)
-    private String code;
+    private Long code;
 
     private String itemTitle;
     private String itemType;

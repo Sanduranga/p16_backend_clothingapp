@@ -11,16 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 
-public class StockClearItems {
-    @Id // Specifies the primary key of an entity.
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    public class StockClearItems {
+        @Id // Specifies the primary key of an entity.
+        private Long itemsCode;
 
-    @JsonIgnoreProperties("stockClearItems")   // to avoid json looping
-    @OneToOne // making a one-to-one relationship with the Items entity.
-    @JoinColumn(name = "itemId") // leaveraging relational data bases methodes Specifies the foreign key in the StockClearItem's table that refers to the primary key of the Items table.
-    private Items items;
+        @JsonIgnoreProperties("stockClearItems")   // to avoid json looping
+        @OneToOne // making a one-to-one relationship with the Items entity.
+        @MapsId
+        private Items items;
 
-    private int stockClearingPrice;
+        private int stockClearingPrice;
 
-}
+    }

@@ -13,12 +13,11 @@ import lombok.NoArgsConstructor;
 
     public class SaleItems {
         @Id // Specifies the primary key of an entity.
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private long id;
+        private Long itemsCode;
 
         @JsonIgnoreProperties("saleItems") // to avoid json looping
         @OneToOne() // making a one-to-one relationship with the Items entity.
-        @JoinColumn(name = "itemId") // leaveraging relational data bases methodes Specifies the foreign key in the SaleItems table that refers to the primary key of the Items table.
+        @MapsId
         private Items items;
 
         private float salePrice;

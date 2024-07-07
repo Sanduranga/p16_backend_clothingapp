@@ -3,8 +3,7 @@ package entgraClothingapp.application.dto.request;
 import lombok.Data;
 @Data
 public class CreateItemDto {
-        private long id;
-        private String code;
+        private long code;
         private String itemTitle;
         private String itemType;
         private String sellerName;
@@ -17,7 +16,5 @@ public class CreateItemDto {
         private int buyingPrice;
         private float startingPrice;
         private float profitPercentage;
-        private float salePercentage;
-        private float salePrice;
-        private int stockClearingPrice;
+
 }
