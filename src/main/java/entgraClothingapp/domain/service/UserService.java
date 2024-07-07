@@ -4,6 +4,7 @@ import entgraClothingapp.application.dto.request.CreateUsersDto;
 import entgraClothingapp.application.dto.response.UserDto;
 import entgraClothingapp.domain.entity.Users;
 import entgraClothingapp.external.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    @Transactional
     public ResponseEntity<UserDto> getUser(String email, String password) {
         UserDto userDto = new UserDto();
         Optional<Users> optionalUsers = userRepository.findByEmail(email);
@@ -38,11 +40,13 @@ public class UserService {
         }
     }
 
+    @Transactional
     public ResponseEntity<List<Users>> getUsers() {
         List<Users> users = userRepository.findAll();
         return ResponseEntity.ok(users);
     }
 
+    @Transactional
     public ResponseEntity<Users> addUser(CreateUsersDto createUsersDto) {
         Optional<Users> optinalUser = userRepository.findByEmail(createUsersDto.getEmail());
         if (optinalUser.isPresent()) {
@@ -58,6 +62,7 @@ public class UserService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Void> deleteUser(String email) {
         Users user = userRepository.findByEmail(email).orElse(null);
         if(user != null){

@@ -14,8 +14,9 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class ItemService {
-        private final ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
 
+    @Transactional
     public ResponseEntity<Items> addItem(CreateItemDto createItemDto) {
         Optional<Items> sameCodeItem = itemRepository.findByCode(createItemDto.getCode());
         // here checking whether item code is already having data base
@@ -44,11 +45,13 @@ public class ItemService {
         }
     }
 
+    @Transactional
     public ResponseEntity<List<Items>> getAllItems() {
         List<Items> items = itemRepository.findAll();
         return ResponseEntity.ok(items);
     }
 
+    @Transactional
     public ResponseEntity<ItemDto> getItem(long code) {
         ItemDto itemDto = new ItemDto();
         Optional<Items> optionalItem = itemRepository.findById(code);
@@ -84,6 +87,7 @@ public class ItemService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Items> updateItem(CreateItemDto createItemDto) {
         Optional<Items> optionalItem = itemRepository.findByCode(createItemDto.getCode());
         if(optionalItem.isPresent()){

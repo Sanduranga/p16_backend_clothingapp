@@ -6,6 +6,7 @@ import entgraClothingapp.domain.entity.Items;
 import entgraClothingapp.domain.entity.StockClearItems;
 import entgraClothingapp.external.repository.ItemRepository;
 import entgraClothingapp.external.repository.StockItemRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,10 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class StockItemService {
-    private ItemRepository itemRepository;
-    private StockItemRepository stockItemRepository;
+    private final ItemRepository itemRepository;
+    private final StockItemRepository stockItemRepository;
 
+    @Transactional
     public ResponseEntity<StockClearItems> addItem(CreateStockItemDto createStockItemDto) {
         Items item = itemRepository.findByCode(createStockItemDto.getItemsCode())
                 .orElse(null);
@@ -35,11 +37,13 @@ public class StockItemService {
         }
     }
 
+    @Transactional
     public ResponseEntity<List<StockClearItems>> getAllItems() {
         List<StockClearItems> stockClearItems = stockItemRepository.findAll();
         return ResponseEntity.ok(stockClearItems);
     }
 
+    @Transactional
     public ResponseEntity<StockItemDto> getItem(Long code) {
         StockItemDto stockItemDto = new StockItemDto();
         Optional<StockClearItems> optionalItem = stockItemRepository.findByItemsCode(code);
@@ -53,6 +57,7 @@ public class StockItemService {
         }
     }
 
+    @Transactional
     public ResponseEntity<Void> deleteItem(Long code) {
         Items item = itemRepository.findByCode(code).orElse(null);
         if(item != null){

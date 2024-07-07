@@ -19,6 +19,7 @@ public class SaleItemService {
     private final ItemRepository itemRepository;
     private final SaleItemRepository saleItemRepository;
 
+    @Transactional
     public ResponseEntity<SaleItems> addItem(CreateSaleItemDto createSaleItemDto) {
         Items item = itemRepository.findByCode(createSaleItemDto.getItemsCode())
                 .orElse(null);
@@ -36,6 +37,7 @@ public class SaleItemService {
         }
     }
 
+    @Transactional
     public ResponseEntity<List<SaleItems>> getAllItems() {
         List<SaleItems> saleItems = saleItemRepository.findAll();
         return ResponseEntity.ok(saleItems);
